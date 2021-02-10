@@ -66,6 +66,7 @@ function [x_a, x_b] = oneD_bisection(a, b, f, tol, max_iter)
         
         %check if we meet tolerance requirements
         if abs(x_b - x_a) <= tol
+            
             break
         end
     end

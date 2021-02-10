@@ -1,5 +1,3 @@
-func = @(x) (x-3)^4 + x^3 - (x + 1)^2 -;
+func = @(x) x^4 + x + x^100 + x^670 - x^8 + 2;
 
-[lower, upper] = oneD_bisection(-10, 10, func, 0.00000001, 1000);
-
-lower - upper
+[lower, upper] = oneD_bisection(0.91, 3, func, 0.00000001, 1000);
