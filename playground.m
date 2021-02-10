@@ -11,9 +11,17 @@ func_2 = @(x) 20*a*x^3 + 12*b*x^2 + 6*c*x + 2*d;
 
 
 [lower, upper] = oneD_bisection(-1.075, 1.7, func, 0.00001, 10);
-test_new = newton_method((lower+upper)/2, func_1, func_2, 0.00001, 10);
+test_new = newton_method((lower+upper)/2, func_1, func_2, 0.00001, 1000);
+test_sec = secant_method(lower, (lower+upper)/2, func_1, 0.00001, 100000);
 
-x = -1.6:0.01:2;
-y = func(x);
+% disagreement
 
-plot(x, y)
+abs((lower+upper)/2 - test_new)
+abs((lower+upper)/2 - test_sec)
+abs(test_new - test_sec)
+
+
+%x = -1.6:0.01:2;
+%y = func(x);
+
+%plot(x, y)
