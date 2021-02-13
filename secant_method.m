@@ -11,28 +11,33 @@ max_iter (positive int) maximum number of iterations
 OUTPUTS:
 
 x_k: (float) new minimum
+iter: (int) number of iterations to solve
 %}
 
-function [x_k] = secant_method(x_k, x_k1, f, tol, max_iter)
+function [x_k1, iter] = secant_method(x_k0, x_k1, f, tol, max_iter)
 
     % evaluate values for function being analysed
-    f_x = f(x_k);
+    f_x0 = f(x_k0);
     f_x1 = f(x_k1);
+    
+    iter = 0;
 
     for n=1:max_iter
         
-        x_temp = x_k;
+        x_temp = x_k1;
         % find better minimum
-        x_k = x_k - (f_x * (x_k - x_k1)/(f_x - f_x1));
+        x_k1 = double(x_k1 - (f_x1 * (x_k1 - x_k0)/(f_x1 - f_x0)));
         
-        f_x = f(x_k);
+        iter = iter + 1;
+        
+        f_x1 = f(x_k1);
         %check tolerence
-        if abs(f_x) < tol
+        if abs(f_x1) < tol
             
             break;
         end
         
-        x_k1 = x_temp;
-        f_x1 = f(x_k1);          
+        x_k0 = x_temp;
+        f_x0 = f(x_k0);         
     end
 end

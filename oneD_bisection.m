@@ -13,9 +13,10 @@ OUTPUTS:
 
 x_a: (float) lower bound for final interval
 x_b: (float) upper bound for final interval
+iter: (int) number of iterations to solve
 %}
 
-function [x_a, x_b] = oneD_bisection(a, b, f, tol, max_iter)
+function [x_a, x_b, iter] = oneD_bisection(a, b, f, tol, max_iter)
 
     %set bounds and point
     x_a = a;
@@ -26,6 +27,8 @@ function [x_a, x_b] = oneD_bisection(a, b, f, tol, max_iter)
     f_a = f(x_a);
     f_b = f(x_b);
     f_m = f(x_m);
+    
+    iter = 0;
 
     for n = 1:max_iter
         
@@ -63,6 +66,8 @@ function [x_a, x_b] = oneD_bisection(a, b, f, tol, max_iter)
             f_a = f_m;
             f_m = f_r;
         end
+        
+        iter = iter + 1;
         
         %check if we meet tolerance requirements
         if abs(x_b - x_a) <= tol
