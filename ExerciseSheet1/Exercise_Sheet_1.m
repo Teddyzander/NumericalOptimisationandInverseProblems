@@ -56,11 +56,16 @@ ls(a) = (a.*time(1) - temp(1)).^2 + (a.*time(2) - temp(2)).^2 + ...
     (a.*time(3) - temp(3)).^2 + (a.*time(4) - temp(4)).^2;
 
 % define the function for total least squares
+%{
 tls(a) = ((abs(a.*time(1) - temp(1)))./sqrt(a.^2 + (-1)^2)).^2 + ...
     ((abs(a.*time(2) - temp(2)))./sqrt(a.^2 + (-1)^2)).^2 + ...
     ((abs(a.*time(3) - temp(3)))./sqrt(a.^2 + (-1)^2)).^2 + ...
     ((abs(a.*time(4) - temp(4)))./sqrt(a.^2 + (-1)^2)).^2;
-
+%}
+tls(a) = (((a.*time(1) - temp(1)).^2) ./ (a.^2 + 1)) + ...
+    (((a.*time(2) - temp(2)).^2) ./ (a.^2 + 1)) + ...
+    (((a.*time(3) - temp(3)).^2) ./ (a.^2 + 1)) + ...
+    (((a.*time(4) - temp(4)).^2) ./ (a.^2 + 1));
 % plot(time, temp)
 
 %plot the data
@@ -88,7 +93,35 @@ min_bi_tls_a = (lower_a+upper_a)/2;
 ls_tls_diff = abs(min_bi_ls_a-min_bi_tls_a);
 bi_error_a_tls = abs(min_a - min_bi_tls_a);
 
+% Just check the minimums agree with matlab
+matlab_ls = fminsearch(ls, 2.2);
+matlab_tls = fminsearch(tls, 2.2);
+ls_error = abs(matlab_ls - min_bi_ls_a);
+tls_error = abs(matlab_tls - min_bi_tls_a);
 
+if ls_error < 10^-4
+    disp('Correct value for least squares')
+end
+if tls_error < 10^-4
+    disp('Correct value for total least squares')
+end
+
+%plot data and lines of fit
+%define good functions
+ls_line = @(t) t .* min_bi_ls_a;
+tls_line = @(t) t .* min_bi_tls_a;
+
+%get time data
+all_time = [0:0.01:4];
+
+%plot
+figure(5)
+subplot(2,1,1);
+plot(time, temp, 'o', all_time, ls_line(all_time), '-r')
+title('line of best fit using least squares (slope 2.4033)')
+subplot(2,1,2); 
+plot(time, temp, 'o', all_time, tls_line(all_time), '-b')
+title('line of best fit using total least squares (slope 2.4046)')
 
 
 
