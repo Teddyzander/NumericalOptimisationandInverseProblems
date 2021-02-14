@@ -122,7 +122,7 @@ title('line of best fit using least squares (slope 2.4033)')
 subplot(2,1,2); 
 plot(time, temp, 'o', all_time, tls_line(all_time), '-b')
 title('line of best fit using total least squares (slope 2.4046)')
-
+%random comment
 
 
 
