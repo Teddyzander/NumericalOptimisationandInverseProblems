@@ -70,7 +70,7 @@ function [x_a, x_b, iter] = oneD_bisection(a, b, f, tol, max_iter)
         iter = iter + 1;
         
         %check if we meet tolerance requirements
-        if abs(x_b - x_a) <= tol
+        if abs(x_b - x_a) < tol
             
             break
         end

@@ -38,3 +38,35 @@ legend('F(x)', 'P_1(X)', 'P_2(X)', 'P_3(X)', 'P_4(X)', 'P_5(X)', 'P_6(X)', 'P_7(
 [gss, gss_iter] = gss_method(4, 6, f, tol, max_iter)
 
 [brent, brent_iter] = brent_method(4, 6, f, tol, max_iter)
+
+%% Least Squares Stuff
+
+% sort the data
+time = [1, 2, 3, 4];
+temp = [2.3, 5.1, 7.2, 9.5];
+
+% define the functions for least squares
+syms ls(a) tls(a)
+ls(a) = (a.*time(1) - temp(1)).^2 + (a.*time(2) - temp(2)).^2 + ...
+    (a.*time(3) - temp(3)).^2 + (a.*time(4) - temp(4)).^2;
+
+% define the function for total least squares
+tls(a) = ((abs(a.*time(1) - temp(1)))/sqrt(a.^2))^2 + ...
+    ((abs(a.*time(2) - temp(2)))/sqrt(a.^2))^2 + ...
+    ((abs(a.*time(3) - temp(3)))/sqrt(a.^2))^2 + ...
+    ((abs(a.*time(4) - temp(4)))/sqrt(a.^2))^2;
+
+% plot(time, temp)
+
+%plot the data
+ls_a = [2.2:0.01:2.6];
+ls_f = ls(ls_a);
+lst_f = tls(ls_a);
+plot(ls_a, ls_f, '-r', ls_a, lst_f, '-b');
+hold on
+
+    
+    
+
+
+
