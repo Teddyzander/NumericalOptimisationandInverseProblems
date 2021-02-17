@@ -50,14 +50,24 @@ end
 % check we meet criteria
 one = g_min(1);
 two = g_min(2);
+
+flag1 = 0
+glag2 = 0
 if one == 0 && two == 0
     disp('1st order criteria met')
+    flag1 = 1;
 end
 det_1 = H_min(1,1);
 det_2 = det(H_min);
 
 if det_1 >= 0 && det_2 >= 0
     disp('2nd order criteria met')
+    flag2 = 2;
+end
+
+if flag1 == 1 && flag2 ==2
+    str = [num2str(min(1)), ', ', num2str(min(2)), ' is minimiser'];
+    disp(join(str))
 end
 
 
