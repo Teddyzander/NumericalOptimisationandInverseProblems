@@ -2,8 +2,8 @@
 f = @(x_1, x_2) 100*(x_2 - x_1^2)^2 + (1 - x_1)^2;
 
 % define some bounds to examine this function
-a = 0;
-b = 2;
+a = -1;
+b = 1;
 
 % get even steps over this domain
 x1 = [a:0.1:b];
@@ -51,14 +51,14 @@ end
 one = g_min(1);
 two = g_min(2);
 
-flag1 = 0
-glag2 = 0
+flag1 = 0;
+flag2 = 0;
 if one == 0 && two == 0
     disp('1st order criteria met')
     flag1 = 1;
 end
 det_1 = H_min(1,1);
-det_2 = det(H_min);
+det_2 = H_min(1, 1) * H_min(2, 2) - H_min(1, 2) * H_min(2, 1);
 
 if det_1 >= 0 && det_2 >= 0
     disp('2nd order criteria met')
