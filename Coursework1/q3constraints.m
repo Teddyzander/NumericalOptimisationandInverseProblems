@@ -1,7 +1,7 @@
 %% plane plot
 figure(2)
 [x z] = meshgrid(-1:0.1:1); % Generate x and y data
-y = -1 - x; % Solve for z data
+y = -1 - x + 2*z.^3; % Solve for z data
 plane = surf(x,y,z); %Plot the surface
 set(plane,'FaceColor',[0 0 1],'FaceAlpha',0.5);
 hold on
