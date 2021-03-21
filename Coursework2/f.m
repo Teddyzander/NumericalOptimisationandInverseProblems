@@ -30,7 +30,7 @@ end
 
 if plot == true
     if type == 's'
-        plot = surf(x_int, y_int, surface);
+        plot = surf(y_int, x_int, surface);
         title('Surface plot for the function $f$', ...
             'interpreter','latex','FontSize',12);
         xlabel('$x_1$','interpreter','latex','FontSize',12,'FontWeight', 'bold');
