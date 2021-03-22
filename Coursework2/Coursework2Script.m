@@ -80,7 +80,7 @@ end
 % make a plot to show how the descent behaved
 figure(1)
 hold on
-plot(NM_x_min(1, :), NM_x_min(2, :), '-r', 'linewidth', 2);
+plot(NM_x_min(1, :), NM_x_min(2, :), '-g', 'linewidth', 2);
 legend('$f(x_1, x_2)$', 'Descent from $[0, 0]^T$', 'interpreter','latex', ...
     'FontSize',12,'FontWeight', 'bold');
 grid on
@@ -92,8 +92,8 @@ steps = 2; % number of steps
 tol = 0.0001; % some tolerance for acceptable gradient at x_min
 
 % Apple the Conjugate Gradient Method
-[CG_x_min, CG_g, CG_p, CG_beta, CG_alpha] = ConjugateGradient(x_0, g, ...
-    A, steps, tol); 
+[CG_x_min, CG_g, CG_p, CG_beta, CG_alpha] = ConjugateGradient(x_0, A, ...
+    b, steps, tol); 
 
 % display values for each step
 disp('Initial guess for x_0: [' + string(x_0(1)) + ' ' + ...
@@ -110,8 +110,40 @@ end
 % make a plot to show how the descent behaved
 figure(1)
 hold on
-plot(CG_x_min(1, :), CG_x_min(2, :), '-r', 'linewidth', 2);
+plot(CG_x_min(1, :), CG_x_min(2, :), '--c', 'linewidth', 2);
 legend('$f(x_1, x_2)$', 'Descent from $[0, 0]^T$', 'interpreter','latex', ...
+    'FontSize',12,'FontWeight', 'bold');
+grid on
+
+%% Q3 find an estimated minimiser of Q using Conjugate Gradient Method 
+% for 2 steps
+
+steps = 2; % number of steps
+tol = 0.0001; % some tolerance for acceptable gradient at x_min
+H_0 = [2, 0; 0, 6]; % initial guess of hessian
+
+% Apple the DFP Quasi-Newton method
+[DFP_x_min, DFP_g, DFP_H, DFP_p] = DFP(x_0, H_0, A, ...
+    g, steps, tol); 
+
+% display values for each step
+disp('Initial guess for x_0: [' + string(x_0(1)) + ' ' + ...
+    string(x_0(2)) + ']')
+for k=1:length(CG_alpha)
+    disp('Values for step ' + string(k))
+    disp('g(k): [' + string(DFP_g(1, k)) + ' ' + string(DFP_g(2, k)) + ']')
+    disp('p(k+1): [' + string(DFP_p(1, k+1)) + ' ' + string(DFP_p(2, k+1)) + ']')
+    disp('H(k+1):')
+    DFP_H(:, :, k+1)
+    disp('new min estimate: [' + string(DFP_x_min(1, k+1)) + ' ' + ... 
+        string(DFP_x_min(2, k+1)) + ']')    
+end
+% make a plot to show how the descent behaved
+figure(1)
+hold on
+plot(DFP_x_min(1, :), DFP_x_min(2, :), '-y', 'linewidth', 2);
+legend('$f(x_1, x_2)$', 'Steepest Descent', 'Newton Method', ...
+    'Conjugate Method', 'DFP Method', 'interpreter','latex', ...
     'FontSize',12,'FontWeight', 'bold');
 grid on
 
