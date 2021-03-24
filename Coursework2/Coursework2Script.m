@@ -32,13 +32,15 @@ x_0 = [0;0]; % initial guess
 
 %% Q1 find an estimated minimiser of Q using steepest descent for 2 steps
 
-steps = 2; % number of steps
+steps = 02; % number of steps
 tol = 0.0001; % some tolerance for acceptable gradient at x_min
 
 % apply steepest descent
 [SD_x_min, SD_p, SD_alpha] = SteepestDescent(x_0, A, g, steps, tol); 
 
 % display values for each step
+disp('-----------------------------------------------------------------')
+disp('STEEPEST DESCENT')
 disp('Initial guess for x_0: [' + string(x_0(1)) + ' ' + ...
     string(x_0(2)) + ']')
 for k=1:length(SD_alpha)
@@ -66,6 +68,8 @@ tol = 0.0001; % some tolerance for acceptable gradient at x_min
     steps, tol); 
 
 % display values for each step
+disp('-----------------------------------------------------------------')
+disp('NEWTON METHOD')
 disp('Initial guess for x_0: [' + string(x_0(1)) + ' ' + ...
     string(x_0(2)) + ']')
 for k=1:length(NM_alpha)
@@ -96,6 +100,8 @@ tol = 0.0001; % some tolerance for acceptable gradient at x_min
     b, steps, tol); 
 
 % display values for each step
+disp('-----------------------------------------------------------------')
+disp('CONJUGATE GRADIENT METHOD')
 disp('Initial guess for x_0: [' + string(x_0(1)) + ' ' + ...
     string(x_0(2)) + ']')
 for k=1:length(CG_alpha)
@@ -115,7 +121,7 @@ legend('$f(x_1, x_2)$', 'Descent from $[0, 0]^T$', 'interpreter','latex', ...
     'FontSize',12,'FontWeight', 'bold');
 grid on
 
-%% Q3 find an estimated minimiser of Q using Conjugate Gradient Method 
+%% Q4 find an estimated minimiser of Q using DFP Method 
 % for 2 steps
 
 steps = 2; % number of steps
@@ -127,13 +133,16 @@ H_0 = [2, 0; 0, 6]; % initial guess of hessian
     g, steps, tol); 
 
 % display values for each step
+disp('-----------------------------------------------------------------')
+disp('DFP METHOD')
 disp('Initial guess for x_0: [' + string(x_0(1)) + ' ' + ...
     string(x_0(2)) + ']')
 for k=1:length(CG_alpha)
     disp('Values for step ' + string(k))
-    disp('g(k): [' + string(DFP_g(1, k)) + ' ' + string(DFP_g(2, k)) + ']')
-    disp('p(k+1): [' + string(DFP_p(1, k+1)) + ' ' + string(DFP_p(2, k+1)) + ']')
-    disp('H(k+1):')
+    disp('g: [' + string(DFP_g(1, k)) + ' ' + string(DFP_g(2, k)) + ']')
+    disp('p(' + string(k) + '): [' + string(DFP_p(1, k+1)) + ' ' + ...
+        string(DFP_p(2, k+1)) + ']')
+    disp('H(' + string(k) + '): ')
     DFP_H(:, :, k+1)
     disp('new min estimate: [' + string(DFP_x_min(1, k+1)) + ' ' + ... 
         string(DFP_x_min(2, k+1)) + ']')    
@@ -142,6 +151,14 @@ end
 figure(1)
 hold on
 plot(DFP_x_min(1, :), DFP_x_min(2, :), '-y', 'linewidth', 2);
+legend('$f(x_1, x_2)$', 'DFP Method', 'interpreter','latex', ...
+    'FontSize',12,'FontWeight', 'bold');
+grid on
+
+%% If all functions have been run at once, make plot with legend for
+% all descents
+figure(1)
+hold on
 legend('$f(x_1, x_2)$', 'Steepest Descent', 'Newton Method', ...
     'Conjugate Method', 'DFP Method', 'interpreter','latex', ...
     'FontSize',12,'FontWeight', 'bold');

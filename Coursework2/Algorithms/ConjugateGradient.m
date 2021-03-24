@@ -33,7 +33,7 @@ iter = 0;
 for k=1:steps
     
     % perform exact line search
-    alpha(k) = -(g(:, k).'*p(:,k))/(p(:, k).'*A*p(:, k));
+    alpha(k) = -(p(:,k).'*g(:, k))/(p(:, k).'*A*p(:, k));
     % update gradient for next step
     g(:, k+1) = A*(x(:, k) + alpha(k)* p(:, k)) + b;
     %update the minimum

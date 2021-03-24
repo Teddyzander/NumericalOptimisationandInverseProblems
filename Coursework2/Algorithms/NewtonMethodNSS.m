@@ -21,7 +21,7 @@ x = zeros(length(x_0), length(1:steps));
 g = zeros(length(x_0), length(1:steps));
 p = zeros(length(x_0), length(1:steps));
 H = zeros(length(x_0), length(x_0), length(1:steps));
-alpha = zeros(1, length(1:steps)-1);
+alpha = zeros(1, length(1:steps));
 % initialise first guess at minimum
 x(:, 1) = x_0;
 % start counter
