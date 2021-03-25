@@ -51,7 +51,8 @@ for k=1:steps
     y = g(:, k+1) - g(:, k);
     H(:, :, k+1) = (I - (y * s.')/(y.'*s)) * ...
         H(:, :, k) * (I - (s*y.')/(y.'*s)) + (y*y.')/(y.'*s);
-    iter = iter + 1;    
+    iter = iter + 1;
+    
     if norm(grad(x(:, k+1))) < tol
         break;
     end

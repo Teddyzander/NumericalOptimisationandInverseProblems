@@ -137,7 +137,8 @@ disp('-----------------------------------------------------------------')
 disp('DFP METHOD')
 disp('Initial guess for x_0: [' + string(x_0(1)) + ' ' + ...
     string(x_0(2)) + ']')
-for k=1:length(CG_alpha)
+DFP_p(1,:)
+for k=1:length(DFP_p(1,:))-1
     disp('Values for step ' + string(k))
     disp('g: [' + string(DFP_g(1, k)) + ' ' + string(DFP_g(2, k)) + ']')
     disp('p(' + string(k) + '): [' + string(DFP_p(1, k+1)) + ' ' + ...

@@ -32,6 +32,7 @@ for k = 1:steps
     
     % get the search direction
     g(:, k) = grad(x(:, k));
+    Hess(x(:, k))
     H(:, :, k) = Hess(x(:, k));
     % calculate the newton step
     p(:, k) = -inv(H(:, :, k)) * g(:, k);
